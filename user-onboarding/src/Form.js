@@ -61,13 +61,15 @@ const FormikUserForm = withFormik({
         password: Yup.string().required("Password is required").min(4, "Password must be between 4-8 characters").max(8, "Password must be between 4-8 characters")
     }),
 
-    handleSubmit(values, { setStatus }) {
+    handleSubmit(values, { setStatus, resetForm }) {
         
         axios.post('https://reqres.in/api/users', values)
         .then(res => {
             setStatus(res.data);
+            resetForm();
         })
         .catch(err => console.log('uh oh', err))
+        
     }
 })(UserForm);
 
